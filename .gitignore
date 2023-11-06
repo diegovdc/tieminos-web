@@ -1,0 +1,17 @@
+.cpcache
+.nrepl-port
+target
+repl
+.shadow-cljs
+target
+yarn.lock
+node_modules/
+.DS_Store
+resources/public/js
+.store
+out
+.#*
+test.log
+.clj-kondo/
+.lsp/
+.cider-repl-history
