@@ -9,4 +9,4 @@
 
 (defmethod -event-msg-handler :default
   [{:keys [event id ?data ring-req ?reply-fn send-fn]}]
-  (log/info :unhandled-event event))
+  (log/info :unhandled-event event :data ?data))
