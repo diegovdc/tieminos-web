@@ -4,7 +4,9 @@
             [ring.middleware.defaults :as middleware]))
 
 (def main-ring-handler
-  (middleware/wrap-defaults router/ring-routes middleware/site-defaults))
+  (middleware/wrap-defaults
+    router/ring-routes
+    (update middleware/site-defaults :security assoc :anti-forgery false)))
 
 (defonce web-server_ (atom nil))
 

@@ -11,6 +11,10 @@
   (GET "/" _ring-req (response/content-type (response/resource-response "index.html") "text/html"))
   (GET  "/chsk"  ring-req (socket/ring-ajax-get-or-ws-handshake ring-req))
   (POST "/chsk"  ring-req (socket/ring-ajax-post                ring-req))
+  (POST "/hacia-un-nuevo-universo-score"  ring-req
+        (do
+          (println ring-req)
+          (response/response {:status 201} )))
   (route/resources "/")
   (route/not-found "Not found"))
 
