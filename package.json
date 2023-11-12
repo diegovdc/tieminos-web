@@ -2,6 +2,9 @@
     "name": "dbme",
     "version": "0.1.0",
     "private": true,
+        "scripts": {
+        "re-frisk-remote": "shadow-cljs run re-frisk-remote.core/start"
+    },
     "dependencies": {
         "react": "^16.13.0",
         "react-dom": "^16.13.0",

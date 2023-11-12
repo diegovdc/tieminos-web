@@ -1,7 +1,7 @@
 (ns io.dbme.frontend.router.setup
   (:require
    [re-frame.core :as rf]
-   #_[reitit.coercion.spec :as rss]
+   [reitit.coercion.spec :as rss]
    [reitit.frontend :as rtf]
    [reitit.frontend.easy :as rtfe]))
 
@@ -16,7 +16,7 @@
     (reset! router
             (rtf/router
              routes
-             #_{:data {:coercion rss/coercion}}))
+             {:data {:coercion rss/coercion}}))
     @router))
 
 (defn init! [routes]

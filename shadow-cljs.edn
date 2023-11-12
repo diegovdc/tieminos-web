@@ -19,7 +19,8 @@
    :js-options {:resolve
                 {"react"     {:export-globals ["React"]}
                  "react-dom" {:export-globals ["ReactDOM"]}}}
-   :devtools   {:repl-pprint true}}}
+   :devtools   {:repl-pprint true
+                :preloads [re-frisk-remote.preload]}}}
 
  ;; TODO understand
  :cache-blockers #{}}
