@@ -19,4 +19,5 @@
                 [:some/broadcast data])))
 
 (comment
-  (send-data {:some-new-data true}))
+  (send-data {:websocket/route :hacia-un-nuevo-universo/score
+              :some-new-data true}))

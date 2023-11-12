@@ -28,7 +28,8 @@
 
 (defn ^:dev/after-load start! []
   (rf/clear-subscription-cache!)
-  (rf/dispatch [:app/init])
+  (rf/dispatch-sync [:app/init])
+  (rf/dispatch-sync [:app/connect])
   (let [root-el (.getElementById js/document "app")
         _router (router.setup/init! routes/routes)]
     (reagent.dom/unmount-component-at-node root-el)
