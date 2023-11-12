@@ -16,7 +16,7 @@
           (println ring-req)
           (response/response {:status 201} )))
   (route/resources "/")
-  (route/not-found "Not found"))
+  (route/not-found (response/content-type (response/resource-response "index.html") "text/html")))
 
 (defonce router_ (atom nil))
 

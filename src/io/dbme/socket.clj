@@ -20,4 +20,10 @@
 
 (comment
   (send-data {:websocket/route :hacia-un-nuevo-universo/score
-              :some-new-data true}))
+              :some-new-data true})
+  (send-data {:websocket/route :sound-events.v1/visualize
+              :data  (->> (range 20)
+                          (map (fn [i] {:x (+ (rand-int 100) (* 100 i))
+                                        :y (- (rand-int 80) 20)
+                                        :width 100
+                                        :color (rand-nth ["orange" "pink" "lightgreen" "blue"])})))}))

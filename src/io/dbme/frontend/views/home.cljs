@@ -2,7 +2,8 @@
   (:require
    [cljs.reader :as reader]
    [re-frame.core :as rf]
-   [reagent.core :as r]))
+   [reagent.core :as r]
+   [reitit.frontend.easy :as rtfe]))
 
 (defn connect-button []
   [:input {:type     :button
@@ -32,6 +33,7 @@
 (defn main []
   [:div
    [connect-button]
+   [:a {:href (rtfe/href :routes/events-visualizer)} "Events visualizer"]
    [:h2
     (str @(rf/subscribe [:app/data]))]
    [input-field]])
