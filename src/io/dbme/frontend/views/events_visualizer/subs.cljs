@@ -15,8 +15,21 @@
     (map (fn [d] (update d :y #(* y-ratio (+ y-offset %)))) events-data)))
 
 (rf/reg-sub
-  :sound-events.v1/rescaled-data
+  :sound-events.v1/events
+  :<- [:sound-events.v1/data]
+  (fn [data] (:events data)))
+
+(rf/reg-sub
+  :sound-events.v1/horizontal-grid-lines
   :<- [:window/data]
   :<- [:sound-events.v1/data]
+  (fn [[{:keys [width]} data]]
+    (rescale-y-axis width (:horizontal-grid-lines (:config data)
+                                                  []))))
+
+(rf/reg-sub
+  :sound-events.v1/rescaled-data
+  :<- [:window/data]
+  :<- [:sound-events.v1/events]
   (fn [[{:keys [width]} events-data]]
     (rescale-y-axis width events-data)))

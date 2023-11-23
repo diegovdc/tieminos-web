@@ -24,6 +24,12 @@
   (send-data {:websocket/route :sound-events.v1/visualize
               :data  (->> (range 20)
                           (map (fn [i] {:x (+ (rand-int 100) (* 100 i))
-                                        :y (- (rand-int 80) 20)
+                                        :y (- (rand-int 8000) 20)
                                         :width 100
                                         :color (rand-nth ["orange" "pink" "lightgreen" "blue"])})))}))
+
+#_(->> (range 20)
+                          (map (fn [i] {:x (+ (rand-int 100) (* 100 i))
+                                        :y (- (rand-int 8000) 20)
+                                        :width 100
+                                        :color (rand-nth ["orange" "pink" "lightgreen" "blue"])})))
