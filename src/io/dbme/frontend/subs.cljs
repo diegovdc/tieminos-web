@@ -4,7 +4,7 @@
 
 (rf/reg-sub
  :app/data
- (fn [db ]
+ (fn [db]
    (get-in db [:data])))
 
 (rf/reg-sub

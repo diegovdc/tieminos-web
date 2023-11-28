@@ -1,6 +1,9 @@
 (ns io.dbme.frontend.events
-  (:require [re-frame.core :as rf]
-            [io.dbme.frontend.socket :as socket]))
+  (:require
+   [io.dbme.frontend.db :refer [initial-db]]
+   [io.dbme.frontend.socket :as socket]
+   [io.dbme.frontend.views.events-visualizer.events]
+   [re-frame.core :as rf]))
 
 (defonce set-window-data
   (fn []
@@ -23,8 +26,7 @@
   :app/init
   (fn [{:keys [db]} _]
     (when-not (:db/initialized? db)
-      {:db {:db/initialized? true
-            :connected false}
+      {:db initial-db
        :fx [[:window/setup-listeners]
             [:dispatch [:window/set-data
                         {:width js/window.innerWidth
