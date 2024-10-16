@@ -1,9 +1,9 @@
 (ns io.dbme.frontend.views.home
   (:require
    [cljs.reader :as reader]
+   #_[io.dbme.frontend.router.routes :refer [routes]]
    [re-frame.core :as rf]
-   [reagent.core :as r]
-   [reitit.frontend.easy :as rtfe]))
+   [reagent.core :as r]))
 
 (defn connect-button []
   [:input {:type     :button
@@ -29,11 +29,3 @@
                                      (catch js/Error _
                                        (swap! state assoc :error true)))}]]
         (:error @state) (conj [:div {:style {:color :red}} "Input not valid edn"])))))
-
-(defn main []
-  [:div
-   [connect-button]
-   [:a {:href (rtfe/href :routes/events-visualizer)} "Events visualizer"]
-   [:h2
-    (str @(rf/subscribe [:app/data]))]
-   [input-field]])

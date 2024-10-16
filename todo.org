@@ -1,3 +1,6 @@
 * DONE Send data structure through websockets that will be received by the FE and saved somewhere useful on the DB
 CLOSED: [2023-11-11 Sat 20:04]
 * TODO Make visual display for sound events considering freq, dur, additional data.
+** TODO Add event labels
+** TODO Add opacity for amp
+** TODO scale event height width y-scale-factor

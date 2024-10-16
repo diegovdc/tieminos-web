@@ -32,6 +32,12 @@ You should then be able to see the frontend at [localhost:5000](http://localhost
 If you are using [CIDER](https://github.com/clojure-emacs/cider) you can also just jack-in via
 `cider-jack-in-clj&cljs`.
 
+### Refrisk
+`npm run re-frisk-remote`
+
+### Adding new routes on the server
+For some reason it seems like it is necessary to restart the repl when adding a new route for it to register.
+
 ### Sending stuff over the websocket.
 
 The frontend then should look something like

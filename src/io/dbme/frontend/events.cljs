@@ -26,11 +26,23 @@
   :app/init
   (fn [{:keys [db]} _]
     (when-not (:db/initialized? db)
-      {:db initial-db
+      {:db (assoc initial-db :db/initialized? true)
        :fx [[:window/setup-listeners]
             [:dispatch [:window/set-data
                         {:width js/window.innerWidth
                          :height js/window.innerHeight}]]]})))
+(rf/reg-event-fx
+  :app/start-ticker
+  (fn [{:keys [db]} _]
+    (let [ticker-id (js/setInterval (fn [] (rf/dispatch [:app/tick-ticker]))
+                                    50)]
+      {:db (assoc db :app/ticker.time (js/Date.now)
+                  :app/ticker.id ticker-id)})))
+
+(rf/reg-event-fx
+  :app/tick-ticker
+  (fn [{:keys [db]} _]
+    {:db (assoc db :app/ticker.time (js/Date.now))}))
 
 (rf/reg-event-db
  :app/connected
@@ -56,6 +68,41 @@
   [db data]
   {:db (assoc db
               :sound-events.v1/data
+              (:data data))})
+
+(defmethod set-data :garden-earth.tuning/fingering
+  [db data]
+  (println data)
+  {:db (assoc db
+              :garden-earth.tuning/fingering
+              (:data data))})
+
+(defmethod set-data :garden-earth.tuning/note-tuning
+  [db data]
+  (println data)
+  {:db (assoc db
+              :garden-earth.tuning/note-tuning
+              (:data data))})
+
+(defmethod set-data :garden-earth/live-state
+  [db data]
+  (println data)
+  {:db (assoc db
+              :garden-earth/live-state
+              (:data data))})
+
+(defmethod set-data :gusano-cuantico-bardo/live-state
+  [db data]
+  (println data)
+  {:db (assoc db
+              :gusano-cuantico-bardo/live-state
+              (:data data))})
+
+(defmethod set-data :in-volcanic-times/live-state
+  [db data]
+  (println data)
+  {:db (assoc db
+              :in-volcanic-times/live-state
               (:data data))})
 
 (rf/reg-event-fx
