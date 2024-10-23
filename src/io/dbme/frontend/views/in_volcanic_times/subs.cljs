@@ -20,7 +20,11 @@
   :<- [:in-volcanic-times/live-state]
   (fn [state] (select-keys state [:piece/running?
                                   :exp/pedal-1
-                                  :exp/btn-2])))
+                                  :exp/btn-a
+                                  :exp/btn-b
+                                  :exp/btn-1
+                                  :exp/btn-2
+                                  :exp/btn-3])))
 (rf/reg-sub
   :in-volcanic-times/section-handlers
   :<- [:in-volcanic-times/live-state]

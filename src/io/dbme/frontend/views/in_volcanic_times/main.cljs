@@ -3,6 +3,35 @@
    [io.dbme.utils :refer [format-seconds]]
    [re-frame.core :as rf]))
 
+(defn section-description
+  "Section description, can be a string or [string]"
+  [description]
+  (let [styles {:class "text-3xl text-green-300 bg-white bg-opacity-10 p-1 rounded-sm"}]
+    (if (string? description)
+      [:p styles description]
+      [:div (map (fn [d] [:p styles d]) description)])))
+
+(defn section-handlers
+  []
+  (let [general-state @(rf/subscribe [:in-volcanic-times/general-state])
+        handlers @(rf/subscribe [:in-volcanic-times/section-handlers])]
+    [:section {:id "handlers"}
+     (map
+      (fn [[k {:keys [description]}]]
+        [:p {:class "flex gap-2 text-5xl"}
+         [:b {:class (when (-> general-state k (not= 0)) "text-red-500")}
+          k]
+         [:span description]])
+      handlers)]))
+
+(defn general-state
+  []
+  (let [general-state @(rf/subscribe [:in-volcanic-times/general-state])]
+    [:div {:style {:display "flex" :gap 24}}
+     (map (fn [[k v]]
+            [:div k " " v])
+       general-state)]))
+
 (defn section
   []
   (let [{:keys [dur/minutes start-time] :as  section-data} @(rf/subscribe [:in-volcanic-times/section-data])
@@ -18,7 +47,7 @@
                                int
                                format-seconds)]
     (if-not running?
-      [:div {:style {:font-size 80 :color "yellow"}} "In Volcanic Temporality" [:small " (Not Playing)"]]
+      [:div {:class "text-8xl text-yellow-100"} "In Volcanic Temporality"]
       [:div {:style {}}
        [:h1 {:style {:display "flex"
                      :align-items "center"
@@ -29,30 +58,15 @@
 
          [:span {:style {:font-size 48 :color "deeppink"}} remaining-time-secs]
          [:small {:style {:font-size 18}} "(Remaining)"]]
-        [:span {:style {:font-size 80 :color "yellow"}} piece-elapsed-time ]]])))
-
-(defn general-state
-  []
-  (let [{:keys [exp/pedal-1 exp/btn-2]} @(rf/subscribe [:in-volcanic-times/general-state])]
-    [:div {:style {:display "flex" :gap 24}}
-     [:div ":exp/pedal-1 " pedal-1]
-     [:div ":exp/btn-2 " btn-2]]))
-
-(defn section-handlers
-  []
-  (let [handlers @(rf/subscribe [:in-volcanic-times/section-handlers])]
-    [:section {:id "handlers"}
-     (map
-       (fn [[k {:keys [description]}]]
-         [:p {:style {:display "flex" :gap 19 :font-size 36}}
-          [:b k] [:span description]])
-       handlers)]))
-
+        [:span {:style {:font-size 80 :color "yellow"}} piece-elapsed-time]]
+       [:div #_{:class "flex"}
+        (section-description (:description section-data))
+        [:div {:class "p-4"}
+         (general-state)]]])))
 
 (defn main
   []
   [:div  {:style {:padding 16}}
    (section)
-   [:div {:style {:margin-bottom 20}}
-    (general-state)]
-   (section-handlers) ])
+   [:div {:class "py-4"}
+    (section-handlers)]])
