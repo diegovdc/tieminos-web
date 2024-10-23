@@ -19,7 +19,9 @@
    :js-options {:resolve
                 {"react"     {:export-globals ["React"]}
                  "react-dom" {:export-globals ["ReactDOM"]}}}
-   :devtools   {:repl-pprint true
+   :devtools   {:watch-dir ""
+                :watch-path "resources/public"
+                :repl-pprint true
                 :preloads [re-frisk-remote.preload]
                 :before-load io.dbme.client/stop
                 :after-load io.dbme.client/start!}}}
