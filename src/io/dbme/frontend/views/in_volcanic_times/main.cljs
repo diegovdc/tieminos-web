@@ -18,19 +18,24 @@
     [:section {:id "handlers"}
      (map
       (fn [[k {:keys [description]}]]
-        [:p {:class "flex gap-2 text-5xl"}
-         [:b {:class (when (-> general-state k (not= 0)) "text-red-500")}
+        [:p {:class "flex gap-2 items-center"}
+         [:b {:class (str "text-3xl "
+                          (when-not (or (nil? (-> general-state k))
+                                        (zero? (-> general-state k)))
+                            " text-red-500"))}
           k]
-         [:span description]])
+         [:span {:class "text-2xl"} description]])
       handlers)]))
 
 (defn general-state
   []
-  (let [general-state @(rf/subscribe [:in-volcanic-times/general-state])]
+  (let [general-state (-> @(rf/subscribe [:in-volcanic-times/general-state])
+                          (dissoc :piece/running?)
+                          #_(->> (sort-by first)))]
     [:div {:style {:display "flex" :gap 24}}
      (map (fn [[k v]]
-            [:div k " " v])
-       general-state)]))
+            [:div [:span {:class "text-nowrap"} k] " " v])
+          general-state)]))
 
 (defn section
   []
@@ -47,7 +52,9 @@
                                int
                                format-seconds)]
     (if-not running?
-      [:div {:class "text-8xl text-yellow-100"} "In Volcanic Temporality"]
+      [:div {:class "text-8xl text-yellow-100"}
+       [:h1 "En una temporalidad geológica"]
+       [:div {:class "p-4 text-xl"} (general-state)]]
       [:div {:style {}}
        [:h1 {:style {:display "flex"
                      :align-items "center"
@@ -63,6 +70,7 @@
         (section-description (:description section-data))
         [:div {:class "p-4"}
          (general-state)]]])))
+
 
 (defn main
   []

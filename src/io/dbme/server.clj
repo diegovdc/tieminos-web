@@ -5,8 +5,8 @@
 
 (def main-ring-handler
   (middleware/wrap-defaults
-    router/ring-routes
-    (update middleware/site-defaults :security assoc :anti-forgery false)))
+   router/ring-routes
+   (update middleware/site-defaults :security assoc :anti-forgery false)))
 
 (defonce web-server_ (atom nil))
 
@@ -22,9 +22,11 @@
     (println (str "Running at port " port))
     (reset! web-server_ stop-fn)))
 
-(defn start! []
-  (router/start!)
-  (start-server! 5000))
+(defn start!
+  ([] (start! 5000))
+  ([port]
+   (router/start!)
+   (start-server! port)))
 
 (defn stop! []
   (router/stop!)

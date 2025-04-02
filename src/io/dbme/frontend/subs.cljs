@@ -16,9 +16,9 @@
    (true? (get-in db [:connected]))))
 
 (rf/reg-sub
-  :app/ticker.time
-  (fn [db _]
-    (:app/ticker.time db)))
+ :app/ticker.time
+ (fn [db _]
+   (:app/ticker.time db)))
 
 (rf/reg-sub
  :current-route
@@ -26,12 +26,10 @@
    (:current-route db)))
 
 (rf/reg-sub
-  :window/data
-  (fn [db]
-    (:window/data db)))
-
-
+ :window/data
+ (fn [db]
+   (:window/data db)))
 
 (comment
-  @(rf/subscribe [:current-route])
-  )
+
+  @(rf/subscribe [:current-route]))
